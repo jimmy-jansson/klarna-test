@@ -79,13 +79,10 @@ def create_order():
     else:
         authorization_token = response_data["authorization_token"]
 
-        # Filter python objects with list comprehensions
         order_line_data= {key: response_data[key] for key in ("order_lines", "order_amount", "purchase_country", "purchase_currency")}
         
-        # Make a POST request to the Klarna API to create the order
         response = requests.post("https://api.playground.klarna.com/payments/v1/authorizations/" + authorization_token + "/order", headers=headers, json=order_line_data)
         
-        # Check the response status code and return an appropriate response
         if response.ok == True:
             session.clear()
             return render_template("grattis.html", response_data=response_data)
