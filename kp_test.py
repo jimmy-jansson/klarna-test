@@ -7,7 +7,11 @@ import json
 app = Flask(__name__)
 app.secret_key = 'bajsmannen123'
 
-@app.route("/", methods=["GET", "POST"])
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route("/kp", methods=["GET", "POST"])
 def klarna_payments():
     response_data = None
     if request.method == "POST":
@@ -90,5 +94,59 @@ def create_order():
             session.clear()
             return "Order creation failed", 500
 
+@app.route("/kco", methods=["GET", "POST"])
+def klarna_checkout():
+    response_data = None
+    if request.method == "POST":
+        username = session["username"]
+        password = session["password"]
+        usrPass = username + ':' + password
+        b64Val = base64.b64encode(usrPass.encode()).decode()
+        headers = {"Authorization": "Basic %s" % b64Val,
+            "Content-Type": "application/json",
+        }
+        data = {
+            "purchase_country": "SE",
+            "purchase_currency": "SEK",
+            "locale": "sv-SE",
+            "order_amount": 10000,
+            "order_tax_amount": 2000,
+            "order_lines": [
+                {
+                    "type": "physical",
+                    "reference": "123050",
+                    "name": "Tomatoes",
+                    "quantity": 10,
+                    "unit_price": 500,
+                    "tax_rate": 2500,
+                    "total_tax_amount": 1000,
+                    "total_amount": 5000
+                },
+                {
+                    "type": "physical",
+                    "reference": "543670",
+                    "name": "Bananas",
+                    "quantity": 20,
+                    "unit_price": 250,
+                    "tax_rate": 2500,
+                    "total_tax_amount": 1000,
+                    "total_amount": 5000
+                }
+            ],
+            "merchant_urls":{
+            "terms": "https://www.example.com/terms.html",
+            "checkout": "https://www.example.com/checkout.html?order_id={checkout.order.id}",
+            "confirmation": "https://www.example.com/confirmation.html?order_id={checkout.order.id}",
+            "push": "https://www.example.com/api/push?order_id={checkout.order.id}"
+            },
+        }
+        response = requests.post("https://api.playground.klarna.com/checkout/v3/orders", headers=headers, json=data)
+
+        if response.ok == True:
+            response_data = response.json()
+        return render_template("kco_template.html", response_data=response_data)
+    else:
+        return render_template("kco_template.html", response_data=response_data)
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
