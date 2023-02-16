@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Klarna Checkout Widget</title>
+  </head>
+  <body>
+    <form action="/" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <br><br>
+        <input type="submit" value="Submit">
+      </form>
+    {% if response_data %}
+    <div id="klarna-checkout-container"></div>
+    {% autoescape off %}
+    {{response_data.html_snippet}}
+    {% endautoescape %}
+    {% endif %}
+  </body>
+</html>
