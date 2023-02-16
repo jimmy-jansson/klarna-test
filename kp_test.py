@@ -98,8 +98,10 @@ def create_order():
 def klarna_checkout():
     response_data = None
     if request.method == "POST":
-        username = session["username"]
-        password = session["password"]
+        username = request.form["username"]
+        password = request.form["password"]
+        session["username"] = username
+        session["password"] = password
         usrPass = username + ':' + password
         b64Val = base64.b64encode(usrPass.encode()).decode()
         headers = {"Authorization": "Basic %s" % b64Val,
