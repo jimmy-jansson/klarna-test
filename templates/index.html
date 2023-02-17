@@ -1,11 +1,108 @@
 <!doctype html>
-<html>
-<body>
-    <h1>jimmys testsida</h1>
-    <form action="/kp">
-        <button type="submit">kp</button>
-    </form>
-    <form action="kco">
-        <button type="submit">kco</button>
-    </form>
-</html>
+<div class="body-wrapper">
+    <head>
+        <style>
+            body{
+  font-family:'Times New Roman', serif;
+  text-shadow: rgba(0,0,0,.01) 0 0 1px;
+  color:#000;
+  background:#ffc0cb;
+}
+.text-centre{
+  text-align:center;
+}
+.body-wrapper{
+  max-width:1000px;
+  margin:0 auto;
+}
+.picheader{
+  height:250px;
+  overflow:hidden;
+}
+header nav{
+  background:#000;
+  color:#fff;
+  overflow:hidden;
+  padding:10px auto;
+}
+header nav ul{
+  list-style:none;
+  overflow:hidden;
+}
+header nav ul li{
+  float:left;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+header nav ul li a{
+  color:#fff;
+  font-size:1.2em
+}
+article{
+  margin: 5px;
+  padding: 5px 0;
+  border: solid 1px #000;
+  overflow: hidden;
+  padding-top: 7px;
+  background:#d3d3d3;
+}
+.title{
+  background: #000;
+  color: #fff;
+  padding: 5px;
+  padding-left: 10px;
+  overflow: hidden;
+	margin: 0;
+  font-weight:bolder;
+}
+article p, article h1,article h2, article h3, article h4{
+  padding:0 15px;
+}
+main{
+  max-width: 100%;
+}
+aside{
+  float:right;
+	max-width: 32%;
+}
+footer{
+	width: 100%;
+	float: left;
+}
+
+        </style>
+    </head>
+    <header>
+      <h1 class="title text-centre">jimmys testsida</h1>
+      <div class="picheader">
+        <img src="http://www.viajejet.com/wp-content/viajes/bosque-de-finlandia.jpg" alt="Header Image" />
+      </div>
+    <nav role='navigation'>
+      <ul>
+        <form action="/">
+            <li><a href="#">hem</a></li>
+        </form>
+        <form action="/kp">
+            <li><a href="/kp">kp</a></li>
+        </form>
+        <form action="/kco">
+            <li><a href="/kco">kco</a></li>
+        </form>
+      </ul>
+    </nav>	
+    </header>
+    <main>
+      <article>
+        <h1 class="title">ajajaja</h1>
+        <p>blablabla
+  </p>
+      </article>
+          <article>
+        <h2 class="title">jajajajaj</h2>
+blablabla
+        </article>
+    </main>
+    <footer>
+      <h3 class="title"></h3>
+    </footer>
+  </div>
