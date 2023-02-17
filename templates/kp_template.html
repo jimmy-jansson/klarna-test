@@ -72,7 +72,7 @@
         width: 100%;
         float: left;
     }
-    
+
             </style>
         </head>
         <header>
@@ -83,7 +83,7 @@
         <nav role='navigation'>
           <ul>
             <form action="/">
-                <li><a href="#">hem</a></li>
+                <li><a href="/">hem</a></li>
             </form>
             <form action="/kp">
                 <li><a href="/kp">kp</a></li>
@@ -92,12 +92,11 @@
                 <li><a href="/kco">kco</a></li>
             </form>
           </ul>
-        </nav>	
+        </nav>
         </header>
         <main>
           <article>
-            <h1 class="title">ajajaja</h1>
-            <h1>kp</h1>
+            <h1 class="title">kp</h1>
             <form action="/kp" method="post">
                 <label for="username">username:</label>
                 <input type="text" id="username" name="username">
@@ -109,9 +108,8 @@
             </form>
           </article>
               <article>
-            <h2 class="title">jajajajaj</h2>
             {% if response_data %}
-            <h2>init_widget</h2>
+            <h2 class="title">init_widget</h2>
             <div id="klarna-payments-container"></div>
             <script>
                 Klarna.Payments.init({
