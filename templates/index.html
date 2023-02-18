@@ -1,124 +1,145 @@
 <!doctype html>
 <div class="body-wrapper">
-    <head>
-        <link rel="icon" type="image/x-icon" href="data:image/png;base64,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">
-        <title>jimmys testsida</title>
-        <style>
-            body{
-  font-family:'Times New Roman', serif;
-  text-shadow: rgba(0,0,0,.01) 0 0 1px;
-  color:#000;
-  background:#ffc0cb;
-}
-.text-centre{
-  text-align:center;
-}
-.body-wrapper{
-  max-width:1000px;
-  margin:0 auto;
-}
-.picheader{
-  height:250px;
-  overflow:hidden;
-}
-header nav{
-  background:#000;
-  color:#fff;
-  overflow:hidden;
-  padding:10px auto;
-}
-header nav ul{
-  list-style:none;
-  overflow:hidden;
-}
-header nav ul li{
-  float:left;
-  margin-left: 4px;
-  margin-right: 4px;
-}
-header nav ul li a{
-  color:#fff;
-  font-size:1.2em
-}
-article{
-  margin: 5px;
-  padding: 5px 0;
-  border: solid 1px #000;
-  overflow: hidden;
-  padding-top: 7px;
-  background:#d3d3d3;
-}
-.title{
-  background: #000;
-  color: #fff;
-  padding: 5px;
-  padding-left: 10px;
-  overflow: hidden;
-	margin: 0;
-  font-weight:bolder;
-}
-article p, article h1,article h2, article h3, article h4{
-  padding:0 15px;
-}
-main{
-  max-width: 100%;
-}
-aside{
-  float:right;
-	max-width: 32%;
-}
-footer{
-	width: 100%;
-	float: left;
-}
-input[type=button], input[type=submit], input[type=reset] {
-  background-color: #f4511e;
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  font-size: 16px;
-  margin: 4px 2px;
-  opacity: 0.6;
-  transition: 0.3s;
-  display: inline-block;
-  text-decoration: none;
-  cursor: pointer;
-}
-input[type=button], input[type=submit], input[type=reset]:hover {opacity: 1}		
-        </style>
-    </head>
-    <header>
-      <h1 class="title text-centre">jimmys testsida</h1>
-      <div class="picheader">
-        <img src="http://www.viajejet.com/wp-content/viajes/bosque-de-finlandia.jpg" alt="Header Image" />
-      </div>
+  <head>
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/3ku6KZl.jpg">
+    <title>jimmys testsida</title>
+    <style>
+      body {
+        font-family: 'Times New Roman', serif;
+        text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
+        color: #000;
+        background: #ffc0cb;
+      }
+
+      .text-centre {
+        text-align: center;
+      }
+
+      .body-wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .picheader {
+        height: 250px;
+        overflow: hidden;
+      }
+
+      header nav {
+        background: #000;
+        color: #fff;
+        overflow: hidden;
+        padding: 10px auto;
+      }
+
+      header nav ul {
+        list-style: none;
+        overflow: hidden;
+      }
+
+      header nav ul li {
+        float: left;
+        margin-left: 4px;
+        margin-right: 4px;
+      }
+
+      header nav ul li a {
+        color: #fff;
+        font-size: 1.2em
+      }
+
+      article {
+        margin: 5px;
+        padding: 5px 0;
+        border: solid 1px #000;
+        overflow: hidden;
+        padding-top: 7px;
+        background: #d3d3d3;
+      }
+
+      .title {
+        background: #000;
+        color: #fff;
+        padding: 5px;
+        padding-left: 10px;
+        overflow: hidden;
+        margin: 0;
+        font-weight: bolder;
+      }
+
+      article p,
+      article h1,
+      article h2,
+      article h3,
+      article h4 {
+        padding: 0 15px;
+      }
+
+      main {
+        max-width: 100%;
+      }
+
+      aside {
+        float: right;
+        max-width: 32%;
+      }
+
+      footer {
+        width: 100%;
+        float: left;
+      }
+
+      input[type=button],
+      input[type=submit],
+      input[type=reset] {
+        background-color: #f4511e;
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-align: center;
+        font-size: 16px;
+        margin: 4px 2px;
+        opacity: 0.6;
+        transition: 0.3s;
+        display: inline-block;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      input[type=button],
+      input[type=submit],
+      input[type=reset]:hover {
+        opacity: 1
+      }
+    </style>
+  </head>
+  <header>
+    <h1 class="title text-centre">jimmys testsida</h1>
+    <div class="picheader"><img src="http://www.viajejet.com/wp-content/viajes/bosque-de-finlandia.jpg" alt="Header Image" /></div>
     <nav role='navigation'>
       <ul>
         <form action="/">
-            <li><a href="/">hem</a></li>
+          <li><a href="/">hem</a></li>
         </form>
         <form action="/kp">
-            <li><a href="/kp">kp</a></li>
+          <li><a href="/kp">kp</a></li>
         </form>
         <form action="/kco">
-            <li><a href="/kco">kco</a></li>
+          <li><a href="/kco">kco</a></li>
         </form>
       </ul>
     </nav>
-    </header>
-    <main>
-      <article>
-        <h1 class="title">ajajaja</h1>
-        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  </p>
-      </article>
-          <article>
-        <h2 class="title">jajajajaj</h2>
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-        </article>
-    </main>
-    <footer>
-      <h3 class="title"></h3>
-    </footer>
-  </div>
+  </header>
+  <main>
+    <article>
+      <h1 class="title">ajajaja</h1>
+      <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+    </article>
+    <article>
+      <h2 class="title">jajajajaj</h2> "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+    </article>
+  </main>
+  <footer>
+    <h3 class="title"></h3>
+  </footer>
+</div>
