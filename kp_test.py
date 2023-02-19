@@ -15,6 +15,7 @@ def index():
 def klarna_payments():
     response_data = None
     if request.method == "POST":
+        session.clear()
         username = request.form["username"]
         password = request.form["password"]
         session["username"] = username
@@ -97,6 +98,7 @@ def create_order():
 @app.route("/kco", methods=["GET", "POST"])
 def klarna_checkout():
     response_data = None
+    session.clear()
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -138,7 +140,7 @@ def klarna_checkout():
             "merchant_urls":{
             "terms": "https://www.example.com/terms.html",
             "checkout": "https://www.example.com/checkout.html?order_id={checkout.order.id}",
-            "confirmation": "https://www.example.com/confirmation.html?order_id={checkout.order.id}",
+            "confirmation": "https://jimmyjansson.se/tacktack={checkout.order.id}",
             "push": "https://www.example.com/api/push?order_id={checkout.order.id}"
             },
         }
@@ -146,9 +148,25 @@ def klarna_checkout():
 
         if response.ok == True:
             response_data = response.json()
+            session["order_id"] = response_data['order_id']
         return render_template("kco_template.html", response_data=response_data)
     else:
         return render_template("kco_template.html", response_data=response_data)
+
+@app.route("/tacktack=<order_id>", methods=["GET", "POST"])
+def thanks(order_id):
+    username = session["username"]
+    password =  session["password"]
+    usrPass = username + ':' + password
+    b64Val = base64.b64encode(usrPass.encode()).decode()
+    headers = {"Authorization": "Basic %s" % b64Val,
+        "Content-Type": "application/json",
+    }
+    order_id = session["order_id"]
+    response = requests.get("https://api.playground.klarna.com/checkout/v3/orders/" + order_id, headers=headers)
+    response_data = response.json()
+    session.clear()
+    return render_template("grattis_kco.html", response_data=response_data)
 
 if __name__ == "__main__":
     app.run(debug=False)
