@@ -85,9 +85,9 @@ def create_order():
         authorization_token = response_data["authorization_token"]
 
         order_line_data= {key: response_data[key] for key in ("order_lines", "order_amount", "purchase_country", "purchase_currency")}
-        
+
         response = requests.post("https://api.playground.klarna.com/payments/v1/authorizations/" + authorization_token + "/order", headers=headers, json=order_line_data)
-        
+        response_data = response.json()
         if response.ok == True:
             session.clear()
             return render_template("grattis.html", response_data=response_data)
@@ -140,7 +140,7 @@ def klarna_checkout():
             "merchant_urls":{
             "terms": "https://www.example.com/terms.html",
             "checkout": "https://www.example.com/checkout.html?order_id={checkout.order.id}",
-            "confirmation": "https://jimmyjansson.se/tacktack={checkout.order.id}",
+            "confirmation": "https://www.jimmyjansson.se/tacktack={checkout.order.id}",
             "push": "https://www.example.com/api/push?order_id={checkout.order.id}"
             },
         }
