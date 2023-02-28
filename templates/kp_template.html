@@ -1,168 +1,189 @@
-    <!doctype html>
-    <div class="body-wrapper">
-      <head>
-        <link rel="icon" type="image/x-icon" href="https://i.imgur.com/3ku6KZl.jpg">
-        <title>jimmys testsida</title>
-        <script src="https://x.klarnacdn.net/kp/lib/v1/api.js"></script>
-        <style>
-          body {
-            font-family: 'Times New Roman', serif;
-            text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
-            color: #000;
-            background: #ffc0cb;
-          }
+<!doctype html>
+<div class="body-wrapper">
 
-          .text-centre {
-            text-align: center;
-          }
+  <head>
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/3ku6KZl.jpg">
+    <title>jimmys testsida</title>
+    <script src="https://x.klarnacdn.net/kp/lib/v1/api.js"></script>
+    <style>
+      body {
+        font-family: 'Times New Roman', serif;
+        text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
+        color: #000;
+        background: #ffc0cb;
+      }
 
-          .body-wrapper {
-            max-width: 1000px;
-            margin: 0 auto;
-          }
+      .text-centre {
+        text-align: center;
+      }
 
-          .picheader {
-            height: 250px;
-            overflow: hidden;
-          }
+      .body-wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
 
-          header nav {
-            background: #000;
-            color: #fff;
-            overflow: hidden;
-            padding: 10px auto;
-          }
+      .picheader {
+        height: 250px;
+        overflow: hidden;
+      }
 
-          header nav ul {
-            list-style: none;
-            overflow: hidden;
-          }
+      header nav {
+        background: #000;
+        color: #fff;
+        overflow: hidden;
+        padding: 10px auto;
+      }
 
-          header nav ul li {
-            float: left;
-            margin-left: 4px;
-            margin-right: 4px;
-          }
+      header nav ul {
+        list-style: none;
+        overflow: hidden;
+      }
 
-          header nav ul li a {
-            color: #fff;
-            font-size: 1.2em
-          }
+      header nav ul li {
+        float: left;
+        margin-left: 4px;
+        margin-right: 4px;
+      }
 
-          article {
-            margin: 5px;
-            padding: 5px 0;
-            border: solid 1px #000;
-            overflow: hidden;
-            padding-top: 7px;
-            background: #d3d3d3;
-          }
+      header nav ul li a {
+        color: #fff;
+        font-size: 1.2em
+      }
 
-          .title {
-            background: #000;
-            color: #fff;
-            padding: 5px;
-            padding-left: 10px;
-            overflow: hidden;
-            margin: 0;
-            font-weight: bolder;
-          }
+      article {
+        margin: 5px;
+        padding: 5px 0;
+        border: solid 1px #000;
+        overflow: hidden;
+        padding-top: 7px;
+        background: #d3d3d3;
+      }
 
-          article p,
-          article h1,
-          article h2,
-          article h3,
-          article h4 {
-            padding: 0 15px;
-          }
+      .title {
+        background: #000;
+        color: #fff;
+        padding: 5px;
+        padding-left: 10px;
+        overflow: hidden;
+        margin: 0;
+        font-weight: bolder;
+      }
 
-          main {
-            max-width: 100%;
-          }
+      article p,
+      article h1,
+      article h2,
+      article h3,
+      article h4 {
+        padding: 0 15px;
+      }
 
-          aside {
-            float: right;
-            max-width: 32%;
-          }
+      main {
+        max-width: 100%;
+      }
 
-          footer {
-            width: 100%;
-            float: left;
-          }
+      aside {
+        float: right;
+        max-width: 32%;
+      }
 
-          input[type=button],
-          input[type=submit],
-          input[type=reset] {
-            background-color: #f4511e;
-            border: none;
-            color: white;
-            padding: 16px 32px;
-            text-align: center;
-            font-size: 16px;
-            margin: 4px 2px;
-            opacity: 0.6;
-            transition: 0.3s;
-            display: inline-block;
-            text-decoration: none;
-            cursor: pointer;
-          }
+      footer {
+        width: 100%;
+        float: left;
+      }
 
-          input[type=button],
-          input[type=submit],
-          input[type=reset]:hover {
-            opacity: 1
-          }
-          form {
-          margin-left: 15px;
-          margin-top: 10px;
-          }
-        </style>
-      </head>
-      <header>
-        <h1 class="title text-centre">jimmys testsida</h1>
-        <div class="picheader"><img src="https://www.viajejet.com/wp-content/viajes/bosque-de-finlandia.jpg" alt="Header Image" /></div>
-        <nav role='navigation'>
-          <ul>
-            <form action="/">
-              <li><a href="/">hem</a></li>
-            </form>
-            <form action="/kp">
-              <li><a href="/kp">kp</a></li>
-            </form>
-            <form action="/kco">
-              <li><a href="/kco">kco</a></li>
-            </form>
-          </ul>
-        </nav>
-      </header>
-      <main>
-        <article>
-          <h1 class="title">kp</h1>
-          <form action="/kp" method="post"><label for="username">username:</label><input type="text" id="username" name="username"><br><br><label for="password">password:</label><input type="password" id="password" name="password"><br><br><input type="Submit" value="create_session"></form>
-        </article>
-        <article> {% if response_data %} <h2 class="title">init_widget</h2>
-          <div id="klarna-payments-container"></div>
-          <script>
-            Klarna.Payments.init({
-              client_token: "{{ response_data.client_token }}"
-            });
-            Klarna.Payments.load({
-              container: "#klarna-payments-container",
+      input[type=button],
+      input[type=submit],
+      input[type=reset] {
+        background-color: #f4511e;
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-align: center;
+        font-size: 16px;
+        margin: 4px 2px;
+        opacity: 0.6;
+        transition: 0.3s;
+        display: inline-block;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      input[type=button],
+      input[type=submit],
+      input[type=reset]:hover {
+        opacity: 1
+      }
+
+      form {
+        margin-left: 15px;
+        margin-top: 10px;
+      }
+
+      .container {
+        position: relative;
+        padding-left: 10px;
+        padding-bottom: 5px;
+        margin-bottom: px;
+        cursor: pointer;
+        font-size: 0px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <header>
+    <h1 class="title text-centre">jimmys testsida</h1>
+    <div class="picheader"><img src="https://www.viajejet.com/wp-content/viajes/bosque-de-finlandia.jpg"
+        alt="Header Image" /></div>
+    <nav role='navigation'>
+      <ul>
+        <form action="/">
+          <li><a href="/">hem</a></li>
+        </form>
+        <form action="/kp">
+          <li><a href="/kp">kp</a></li>
+        </form>
+        <form action="/kco">
+          <li><a href="/kco">kco</a></li>
+        </form>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <h1 class="title">kp</h1>
+      <form action="/kp" method="post"><label for="username">username:</label><input type="text" id="username"
+          name="username"><br><br><label for="password">password:</label><input type="password" id="password"
+          name="password">
+        <br> recurring:<label class="container"><input type="checkbox" name="check" value="true"></label><br><input
+          type="Submit" value="create_session"></form>
+    </article>
+    <article> {% if response_data %} <h2 class="title">init_widget</h2>
+      <div id="klarna-payments-container"></div>
+      <script>
+        Klarna.Payments.init({
+          client_token: "{{ response_data.client_token }}"
+        });
+        Klarna.Payments.load({
+          container: "#klarna-payments-container",
+          payment_method_category: "klarna"
+        });
+      </script>
+      <form action="/create_order" method="post"><input type="hidden" name="authorization_token"
+          id="authorization_token"><button id="complete-purchase-button">authorize</button>
+        <script>
+          document.getElementById("complete-purchase-button").addEventListener("click", function () {
+            Klarna.Payments.authorize({
               payment_method_category: "klarna"
-            });
-          </script>
-          <form action="/create_order" method="post"><input type="hidden" name="authorization_token" id="authorization_token"><button id="complete-purchase-button">authorize</button>
-            <script>
-              document.getElementById("complete-purchase-button").addEventListener("click", function() {
-                Klarna.Payments.authorize({
-                  payment_method_category: "klarna"
-                }, );
-              });
-            </script>
-          </form> {% endif %}
-        </article>
-      </main>
-      <footer>
-        <h3 class="title"></h3>
-      </footer>
-    </div>
+            }, );
+          });
+        </script>
+      </form> {% endif %}
+    </article>
+  </main>
+  <footer>
+    <h3 class="title"></h3>
+  </footer>
+</div>
