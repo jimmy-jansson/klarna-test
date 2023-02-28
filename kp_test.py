@@ -54,7 +54,15 @@ def klarna_payments():
                 }
             ]
         }
-
+        if request.form.get("check") == "true":
+            data["intent"] = "buy_and_tokenize"
+            data["subscription"] =    {
+                    "name": "jimmys prenumeration",
+                    "interval": "MONTH",
+                    "interval_count": "30",
+                }
+        else:
+            data["intent"] = "buy"
         response = requests.post("https://api.playground.klarna.com/payments/v1/sessions", headers=headers, json=data)
 
         if response.ok == True:
@@ -76,6 +84,8 @@ def create_order():
 
     response = requests.get("https://api.playground.klarna.com/payments/v1/sessions/" + session["session_id"], headers=headers)
     response_data = response.json()
+    token_response = None
+    token_response_data = None
 
     while 'authorization_token' not in response_data:
         response = requests.get("https://api.playground.klarna.com/payments/v1/sessions/" + session["session_id"], headers=headers)
@@ -83,14 +93,23 @@ def create_order():
         time.sleep(1)
     else:
         authorization_token = response_data["authorization_token"]
-
-        order_line_data= {key: response_data[key] for key in ("order_lines", "order_amount", "purchase_country", "purchase_currency")}
-
+        if response_data["intent"] == "buy_and_tokenize":
+                    response_data["subscription"] =    {
+                    "name": "jimmys prenumeration",
+                    "interval": "MONTH",
+                    "interval_count": "30",
+                    }
+                    response_data["intended_use"] = "subscription"
+                    response_data["description"] = "tjäna pengar"
+        order_line_data= {key: response_data[key] for key in ("order_lines", "order_amount", "purchase_country", "purchase_currency", "subscription", "intent")}
+        token_data= {key: response_data[key] for key in ("locale", "purchase_country", "purchase_currency", "subscription", "intent", "intended_use", "description")}
         response = requests.post("https://api.playground.klarna.com/payments/v1/authorizations/" + authorization_token + "/order", headers=headers, json=order_line_data)
+        token_response = requests.post("https://api.playground.klarna.com/payments/v1/authorizations/" + authorization_token + "/customer-token", headers=headers, json=token_data)
         response_data = response.json()
+        token_response_data = token_response.json()
         if response.ok == True:
             session.clear()
-            return render_template("grattis.html", response_data=response_data)
+            return render_template("grattis.html", response_data=response_data, token_response_data=token_response_data)
         else:
             session.clear()
             return "Order creation failed", 500
