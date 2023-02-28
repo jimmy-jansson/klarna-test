@@ -101,12 +101,13 @@ def create_order():
                     }
                     response_data["intended_use"] = "subscription"
                     response_data["description"] = "tjäna pengar"
-        order_line_data= {key: response_data[key] for key in ("order_lines", "order_amount", "purchase_country", "purchase_currency", "subscription", "intent")}
-        token_data= {key: response_data[key] for key in ("locale", "purchase_country", "purchase_currency", "subscription", "intent", "intended_use", "description")}
+        order_line_data= {key: response_data[key] for key in ("order_lines", "order_amount", "purchase_country", "purchase_currency", "intent")}
         response = requests.post("https://api.playground.klarna.com/payments/v1/authorizations/" + authorization_token + "/order", headers=headers, json=order_line_data)
-        token_response = requests.post("https://api.playground.klarna.com/payments/v1/authorizations/" + authorization_token + "/customer-token", headers=headers, json=token_data)
+        if response_data["intent"] == "buy_and_tokenize":
+            token_data= {key: response_data[key] for key in ("locale", "purchase_country", "purchase_currency", "subscription", "intent", "intended_use", "description")}
+            token_response = requests.post("https://api.playground.klarna.com/payments/v1/authorizations/" + authorization_token + "/customer-token", headers=headers, json=token_data)
+            token_response_data = token_response.json()
         response_data = response.json()
-        token_response_data = token_response.json()
         if response.ok == True:
             session.clear()
             return render_template("grattis.html", response_data=response_data, token_response_data=token_response_data)
