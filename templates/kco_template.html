@@ -1,5 +1,6 @@
 <!doctype html>
 <div class="body-wrapper">
+
   <head>
     <link rel="icon" type="image/x-icon" href="https://i.imgur.com/3ku6KZl.jpg">
     <title>jimmys testsida</title>
@@ -111,15 +112,17 @@
       input[type=reset]:hover {
         opacity: 1
       }
+
       form {
-      margin-left: 15px;
-      margin-top: 10px;
+        margin-left: 15px;
+        margin-top: 10px;
       }
     </style>
   </head>
   <header>
     <h1 class="title text-centre">jimmys testsida</h1>
-    <div class="picheader"><img src="https://www.viajejet.com/wp-content/viajes/bosque-de-finlandia.jpg" alt="Header Image" /></div>
+    <div class="picheader"><img src="https://www.viajejet.com/wp-content/viajes/bosque-de-finlandia.jpg"
+        alt="Header Image" /></div>
     <nav role='navigation'>
       <ul>
         <form action="/">
@@ -137,10 +140,16 @@
   <main>
     <article>
       <h1 class="title">kco</h1>
-      <form action="/kco" method="post"><label for="username">username:</label><input type="text" id="username" name="username"><br><br><label for="password">password:</label><input type="password" id="password" name="password"><br><br><input type="submit" value="create_order"></form>
+      <form action="/kco" method="post"><label for="username">username:</label><input type="text" id="username"
+          name="username"><br><br><label for="password">password:</label><input type="password" id="password"
+          name="password"><br><br>
+          <label for="recurring">recurring:</label><input type="checkbox" id="recurring"
+          name="recurring" value="true"><br><br>
+          <input type="submit" value="create_order"></form>
     </article>
     <article>
-      <h2 class="title">jajajajaj</h2> {% if response_data %} <div id="klarna-checkout-container"></div> {% autoescape off %} {{response_data.html_snippet}} {% endautoescape %} {% endif %}
+      <h2 class="title">jajajajaj</h2> {% if response_data %} <div id="klarna-checkout-container"></div>
+      {% autoescape off %} {{response_data.html_snippet}} {% endautoescape %} {% endif %}
     </article>
   </main>
   <footer>
