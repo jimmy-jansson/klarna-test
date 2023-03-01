@@ -101,7 +101,8 @@ footer{
         {% autoescape off %}
         {{response_data.html_snippet}}
         {% endautoescape %}
-        {{response_data.order_id}}
+        <b>order_id:</b>{{response_data.order_id}}<br>
+        <b>token_id:</b>{{response_data.recurring_token}}
         {% endif %}
         </article>
     </main>
