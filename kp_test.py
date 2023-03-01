@@ -164,8 +164,14 @@ def klarna_checkout():
             "push": "https://www.example.com/api/push?order_id={checkout.order.id}"
             },
         }
+        if request.form.get("recurring") == "true":
+            data["recurring"] = True
+            data["subscription"] =    {
+                    "name": "jimmys prenumeration",
+                    "interval": "MONTH",
+                    "interval_count": "30",
+                }
         response = requests.post("https://api.playground.klarna.com/checkout/v3/orders", headers=headers, json=data)
-
         if response.ok == True:
             response_data = response.json()
             session["order_id"] = response_data['order_id']
