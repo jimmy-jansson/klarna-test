@@ -194,5 +194,42 @@ def thanks(order_id):
     session.clear()
     return render_template("grattis_kco.html", response_data=response_data)
 
+@app.route("/recurring", methods=["GET", "POST"])
+def klarna_recurring():
+    session.clear()
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        usrPass = username + ':' + password
+        b64Val = base64.b64encode(usrPass.encode()).decode()
+        headers = {"Authorization": "Basic %s" % b64Val,
+            "Content-Type": "application/json",
+        }
+        data = {
+            "purchase_country": "SE",
+            "purchase_currency": "SEK",
+            "locale": "sv-SE",
+            "order_amount": 5000,
+            "order_tax_amount": 1000,
+            "order_lines": [
+                {
+                    "type": "physical",
+                    "reference": "123050",
+                    "name": "Tomatoes",
+                    "quantity": 10,
+                    "unit_price": 500,
+                    "tax_rate": 2500,
+                    "total_tax_amount": 1000,
+                    "total_amount": 5000
+                },
+                        ]
+        }
+        token_id = request.form["token_id"]
+        response = requests.post("https://api.playground.klarna.com/customer-token/v1/tokens/" + token_id + "/order", headers=headers, json=data)
+        response_data = response.json()
+        return render_template("recurring_template.html", response_data = response_data)
+    else:
+        return render_template("recurring_template.html")
+
 if __name__ == "__main__":
     app.run(debug=False)
