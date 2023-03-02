@@ -1,8 +1,7 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session
 import requests
 import base64
 import time
-import json
 
 app = Flask(__name__)
 app.secret_key = 'bajsmannen123'
