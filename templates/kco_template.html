@@ -27,7 +27,7 @@
             <input type="submit" value="create_order"></form>
       </article>
       <article>
-        <h2 class="title">jajajajaj</h2> {% if response_data %} <div id="klarna-checkout-container"></div>
+        {% if response_data %} <h2 class="title">jajajajaj</h2> <div id="klarna-checkout-container"></div>
         {% autoescape off %} {{response_data.html_snippet}} {% endautoescape %} {% endif %}
       </article>
     	</section>
