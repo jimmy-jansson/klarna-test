@@ -163,7 +163,7 @@ def klarna_checkout():
             "push": "https://www.example.com/api/push?order_id={checkout.order.id}"
             },
         }
-        if request.form.get("checkbox") == "true":
+        if request.form.get("check") == "true":
             data["recurring"] = True
             data["subscription"] =    {
                     "name": "jimmys prenumeration",
