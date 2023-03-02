@@ -1,178 +1,55 @@
-<!doctype html>
-<div class="body-wrapper">
-
-	<head>
-		<link rel="icon" type="image/x-icon" href="https://i.imgur.com/3ku6KZl.jpg">
-		<title>jimmys testsida</title>
-		<script src="https://x.klarnacdn.net/kp/lib/v1/api.js"></script>
-		<style>
-		body {
-			font-family: 'Times New Roman', serif;
-			text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
-			color: #000;
-			background: #ffc0cb;
-		}
-		
-		.text-centre {
-			text-align: center;
-		}
-		
-		.body-wrapper {
-			max-width: 1000px;
-			margin: 0 auto;
-		}
-		
-		.picheader {
-			height: 250px;
-			overflow: hidden;
-		}
-		
-		header nav {
-			background: #000;
-			color: #fff;
-			overflow: hidden;
-			padding: 10px auto;
-		}
-		
-		header nav ul {
-			list-style: none;
-			overflow: hidden;
-		}
-		
-		header nav ul li {
-			float: left;
-			margin-left: 4px;
-			margin-right: 4px;
-		}
-		
-		header nav ul li a {
-			color: #fff;
-			font-size: 1.2em
-		}
-		
-		article {
-			margin: 5px;
-			padding: 5px 0;
-			border: solid 1px #000;
-			overflow: hidden;
-			padding-top: 7px;
-			background: #d3d3d3;
-		}
-		
-		.title {
-			background: #000;
-			color: #fff;
-			padding: 5px;
-			padding-left: 10px;
-			overflow: hidden;
-			margin: 0;
-			font-weight: bolder;
-		}
-		
-		article p,
-		article h1,
-		article h2,
-		article h3,
-		article h4 {
-			padding: 0 15px;
-		}
-		
-		main {
-			max-width: 100%;
-		}
-		
-		aside {
-			float: right;
-			max-width: 32%;
-		}
-		
-		footer {
-			width: 100%;
-			float: left;
-		}
-		
-		input[type=button],
-		input[type=submit],
-		input[type=reset] {
-			background-color: #f4511e;
-			border: none;
-			color: white;
-			padding: 16px 32px;
-			text-align: center;
-			font-size: 16px;
-			margin: 4px 2px;
-			opacity: 0.6;
-			transition: 0.3s;
-			display: inline-block;
-			text-decoration: none;
-			cursor: pointer;
-		}
-		
-		input[type=button],
-		input[type=submit],
-		input[type=reset]:hover {
-			opacity: 1
-		}
-		
-		form {
-			margin-left: 15px;
-			margin-top: 10px;
-		}
-		
-		.container {
-			position: relative;
-			padding-left: 10px;
-			padding-bottom: 5px;
-			margin-bottom: px;
-			cursor: pointer;
-			font-size: 0px;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-		}
-		</style>
-	</head>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>jimmys testsida</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+</head>
+<body>
 	<header>
-		<h1 class="title text-centre">jimmys testsida</h1>
-		<div class="picheader"><img src="https://www.viajejet.com/wp-content/viajes/bosque-de-finlandia.jpg" alt="Header Image" /></div>
-		<nav role='navigation'>
+		<nav>
 			<ul>
-				<form action="/">
-					<li><a href="/">hem</a></li>
-				</form>
-				<form action="/kp">
-					<li><a href="/kp">kp</a></li>
-				</form>
-				<form action="/kco">
-					<li><a href="/kco">kco</a></li>
-				</form>
-				<form action="/recurring">
-					<li><a href="/recurring">recurring</a></li>
-				</form>
+        <li><form action="/"><a href="/">hem</a></form></li>
+        <li><form action="/kp"><a href="kp">kp</a></form></li>
+        <li><form action="/kco"><a href="/kco">kco</a></form></li>
+        <li><form action="/recurring"><a href="/recurring">recurring</a></form></li>
 			</ul>
-		</nav>
 	</header>
 	<main>
-		<article>
-			<h1 class="title">recurring</h1>
-			<form action="/recurring" method="post">
-				<label for="username">username:</label>
-				<input type="text" id="username" name="username">
-				<br>
-				<br>
-				<label for="password">password:</label>
-				<input type="password" id="password" name="password">
-				<br>
-				<br>
-				POST /customer-token/v1/tokens/ <input type="text" id="token_id" name="token_id"> /order
-                <br>
-				<input type="Submit" value="create_token_order">
-			</form>
-		</article>
-		<article> {% if response_data %}
-			<h2 class="title">token_create_order</h2> grattis! du har skapat en prenumrationsorder m order id {{response_data.order_id}}!! {% endif %} </article>
+		<section>
+			<h1>recurring</h1>
+            <article>
+                <h2 class="title">create a recurring order using token_id</h1>
+                <form action="/recurring" method="post">
+                    <label for="username">username:</label>
+                    <input type="text" id="username" name="username">
+                    <br>
+                    <br>
+                    <label for="password">password:</label>
+                    <input type="password" id="password" name="password">
+                    <br>
+                    <br>
+                    POST /customer-token/v1/tokens/ <input type="text" id="token_id" name="token_id"> /order
+                    <br>
+                    <input type="Submit" value="create_token_order">
+                </form>
+            </article>
+            <article> {% if response_data %}
+                <h2 class="title">token_create_order</h2> grattis! du har skapat en prenumrationsorder m order id {{response_data.order_id}}!! {% endif %} 
+            </article>
+		</section>
+		<aside>
+			<h2>viktiga länkar</h2>
+			<ul>
+				<li><a href="https://www.vasaloppet.se/vinter/vallaservice/">vallaservice</a></li>
+				<li><a href="https://www.youtube.com/watch?v=p6ROh-M7S0k">hur man simmar</a></li>
+				<li><a href="https://leffescykel.se/">leffes cyklar</a></li>
+        <li><a href="https://enter.lidingoloppet.se/Web/Step1.aspx?EventGroupId=1&CompetitionId=1715">anmälan till lidingöloppet</a></li>
+			</ul>
+		</aside>
 	</main>
 	<footer>
-		<h3 class="title"></h3> </footer>
-</div>
+		<p>&copy; jimmy jansson hihi</p>
+	</footer>
+</body>
+</html>
