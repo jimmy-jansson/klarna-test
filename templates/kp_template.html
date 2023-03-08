@@ -21,10 +21,45 @@
       <article>
         <h1 class="title">kp</h1>
         <form action="/kp" method="post"><label for="username">username:</label><input type="text" id="username"
-            name="username"><br><br><label for="password">password:</label><input type="password" id="password"
-            name="password">
+            name="username"><label for="password"> password:</label><input type="password" id="password"
+            name="password"><br><br>
+            <label for="data">order data:</label><textarea style="height:200px;width:300px;" type="text" id="data" name="data"></textarea>
           <br> recurring:<label class="container"><input type="checkbox" name="check" value="true"></label><br><input
             type="Submit" value="create_session"></form>
+            <script>
+              const jsonData = {
+            "purchase_country": "SE",
+            "purchase_currency": "SEK",
+            "locale": "sv-SE",
+            "order_amount": 10000,
+            "order_tax_amount": 2000,
+            "order_lines": [
+                {
+                    "type": "physical",
+                    "reference": "123050",
+                    "name": "Tomatoes",
+                    "quantity": 10,
+                    "unit_price": 500,
+                    "tax_rate": 2500,
+                    "total_tax_amount": 1000,
+                    "total_amount": 5000
+                },
+                {
+                    "type": "physical",
+                    "reference": "543670",
+                    "name": "Bananas",
+                    "quantity": 20,
+                    "unit_price": 250,
+                    "tax_rate": 2500,
+                    "total_tax_amount": 1000,
+                    "total_amount": 5000
+                }
+            ]
+        };
+              const dataField = document.getElementById("data");
+              const formattedJson = JSON.stringify(jsonData, null, 2); // add two spaces for indentation
+              dataField.value = formattedJson;
+            </script>
       </article>
       <article> {% if response_data %} <h2 class="title">init_widget</h2>
         <div id="klarna-payments-container"></div>
