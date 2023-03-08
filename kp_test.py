@@ -143,25 +143,7 @@ def klarna_recurring():
         headers = {"Authorization": "Basic %s" % b64Val,
             "Content-Type": "application/json",
         }
-        data = {
-            "purchase_country": "SE",
-            "purchase_currency": "SEK",
-            "locale": "sv-SE",
-            "order_amount": 5000,
-            "order_tax_amount": 1000,
-            "order_lines": [
-                {
-                    "type": "physical",
-                    "reference": "123050",
-                    "name": "Tomatoes",
-                    "quantity": 10,
-                    "unit_price": 500,
-                    "tax_rate": 2500,
-                    "total_tax_amount": 1000,
-                    "total_amount": 5000
-                },
-                        ]
-        }
+        data = json.loads(request.form["data"])
         token_id = request.form["token_id"]
         response = requests.post("https://api.playground.klarna.com/customer-token/v1/tokens/" + token_id + "/order", headers=headers, json=data)
         response_data = response.json()
