@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session
 import requests
 import base64
 import time
+import json
 
 app = Flask(__name__)
 app.secret_key = 'bajsmannen123'
@@ -24,35 +25,7 @@ def klarna_payments():
         headers = {"Authorization": "Basic %s" % b64Val,
             "Content-Type": "application/json",
         }
-        data = {
-            "purchase_country": "SE",
-            "purchase_currency": "SEK",
-            "locale": "sv-SE",
-            "order_amount": 10000,
-            "order_tax_amount": 2000,
-            "order_lines": [
-                {
-                    "type": "physical",
-                    "reference": "123050",
-                    "name": "Tomatoes",
-                    "quantity": 10,
-                    "unit_price": 500,
-                    "tax_rate": 2500,
-                    "total_tax_amount": 1000,
-                    "total_amount": 5000
-                },
-                {
-                    "type": "physical",
-                    "reference": "543670",
-                    "name": "Bananas",
-                    "quantity": 20,
-                    "unit_price": 250,
-                    "tax_rate": 2500,
-                    "total_tax_amount": 1000,
-                    "total_amount": 5000
-                }
-            ]
-        }
+        data = json.loads(request.form["data"])
         if request.form.get("check") == "true":
             data["intent"] = "buy_and_tokenize"
             data["subscription"] =    {
@@ -128,43 +101,9 @@ def klarna_checkout():
         headers = {"Authorization": "Basic %s" % b64Val,
             "Content-Type": "application/json",
         }
-        data = {
-            "purchase_country": "SE",
-            "purchase_currency": "SEK",
-            "locale": "sv-SE",
-            "order_amount": 10000,
-            "order_tax_amount": 2000,
-            "order_lines": [
-                {
-                    "type": "physical",
-                    "reference": "123050",
-                    "name": "Tomatoes",
-                    "quantity": 10,
-                    "unit_price": 500,
-                    "tax_rate": 2500,
-                    "total_tax_amount": 1000,
-                    "total_amount": 5000
-                },
-                {
-                    "type": "physical",
-                    "reference": "543670",
-                    "name": "Bananas",
-                    "quantity": 20,
-                    "unit_price": 250,
-                    "tax_rate": 2500,
-                    "total_tax_amount": 1000,
-                    "total_amount": 5000
-                }
-            ],
-            "merchant_urls":{
-            "terms": "https://www.example.com/terms.html",
-            "checkout": "https://www.example.com/checkout.html?order_id={checkout.order.id}",
-            "confirmation": "https://www.jimmyjansson.se/tacktack={checkout.order.id}",
-            "push": "https://www.example.com/api/push?order_id={checkout.order.id}"
-            },
-        }
+        data = json.loads(request.form["data"])
         if request.form.get("check") == "true":
-            data["recurring"] = True
+            data["intent"] = "buy_and_tokenize"
             data["subscription"] =    {
                     "name": "jimmys prenumeration",
                     "interval": "MONTH",
