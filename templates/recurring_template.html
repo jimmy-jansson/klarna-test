@@ -52,7 +52,11 @@
                   </script>
             </article>
             <article> {% if response_data %}
-                <h2 class="title">token_create_order</h2> grattis! du har skapat en prenumrationsorder m order id {{response_data.order_id}}!! {% endif %} 
+                <h2 class="title">token_create_order</h2> grattis! du har skapat en prenumrationsorder m order id {{response_data.order_id}}!!
+                {% elif error_data %}
+                <br> d något fel:
+                <br><div class="error">{{error_data}}</div> 
+                {% endif %} 
             </article>
 		</section>
 		<aside>
