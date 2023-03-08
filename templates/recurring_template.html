@@ -19,20 +19,37 @@
 		<section>
 			<h1>recurring</h1>
             <article>
-                <h2 class="title">create a recurring order using token_id</h1>
-                <form action="/recurring" method="post">
-                    <label for="username">username:</label>
-                    <input type="text" id="username" name="username">
-                    <br>
-                    <br>
-                    <label for="password">password:</label>
-                    <input type="password" id="password" name="password">
-                    <br>
-                    <br>
-                    POST /customer-token/v1/tokens/ <input type="text" id="token_id" name="token_id"> /order
-                    <br>
-                    <input type="Submit" value="create_token_order">
+                <h2 class="title">skapa en recurring order med token_id</h1>
+                    <form action="/recurring" method="post"><label for="username">username:</label><input type="text" id="username"
+                        name="username"><label for="password"> password:</label><input type="password" id="password"
+                        name="password"><br>
+                        <label for="data">order data:<br></label><textarea style="height:200px;width:300px;" type="text" id="data" name="data"></textarea><br>
+                        POST /customer-token/v1/tokens/ <input type="text" id="token_id" name="token_id"> /order
+                        <input type="Submit" value="create_token_order"></form>
                 </form>
+                <script>
+                    const jsonData = {
+            "purchase_country": "SE",
+            "purchase_currency": "SEK",
+            "order_amount": 5000,
+            "order_tax_amount": 1000,
+            "order_lines": [
+                {
+                    "type": "physical",
+                    "reference": "123050",
+                    "name": "Tomatoes",
+                    "quantity": 10,
+                    "unit_price": 500,
+                    "tax_rate": 2500,
+                    "total_tax_amount": 1000,
+                    "total_amount": 5000
+                },
+                        ]
+        };
+                    const dataField = document.getElementById("data");
+                    const formattedJson = JSON.stringify(jsonData, null, 2); // add two spaces for indentation
+                    dataField.value = formattedJson;
+                  </script>
             </article>
             <article> {% if response_data %}
                 <h2 class="title">token_create_order</h2> grattis! du har skapat en prenumrationsorder m order id {{response_data.order_id}}!! {% endif %} 
