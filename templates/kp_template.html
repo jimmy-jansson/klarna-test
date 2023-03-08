@@ -81,7 +81,11 @@
               }, );
             });
           </script>
-        </form> {% endif %}
+        </form> 
+        {% elif error_data %}
+        <br> d något fel:
+        <br><div class="error">{{error_data}}</div>
+        {% endif %}
       </article>
 		</section>
 		<aside>
