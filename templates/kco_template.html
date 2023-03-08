@@ -67,7 +67,11 @@
           </script>
       <article>
         {% if response_data %} <h2 class="title">client_read_pre_purchase</h2> <div id="klarna-checkout-container"></div>
-        {% autoescape off %} {{response_data.html_snippet}} {% endautoescape %} {% endif %}
+        {% autoescape off %} {{response_data.html_snippet}} {% endautoescape %}
+        {% elif error_data %}
+        <br> d något fel:
+        <br><div class="error">{{error_data}}</div>
+        {% endif %}
       </article>
     	</section>
 		<aside>
