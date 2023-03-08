@@ -40,7 +40,10 @@ def klarna_payments():
         if response.ok == True:
             response_data = response.json()
             session["session_id"] = response_data['session_id']
-        return render_template("kp_template.html", response_data=response_data)
+            return render_template("kp_template.html", response_data=response_data)
+        else:
+            error_data = response.text
+            return render_template("kp_template.html", error_data=error_data)
     else:
         return render_template("kp_template.html", response_data=response_data)
 
@@ -113,7 +116,10 @@ def klarna_checkout():
         if response.ok == True:
             response_data = response.json()
             session["order_id"] = response_data['order_id']
-        return render_template("kco_template.html", response_data=response_data)
+            return render_template("kco_template.html", response_data=response_data)
+        else:
+            error_data = response.text
+            return render_template("kco_template.html", error_data=error_data)
     else:
         return render_template("kco_template.html", response_data=response_data)
 
