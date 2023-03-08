@@ -152,8 +152,12 @@ def klarna_recurring():
         data = json.loads(request.form["data"])
         token_id = request.form["token_id"]
         response = requests.post("https://api.playground.klarna.com/customer-token/v1/tokens/" + token_id + "/order", headers=headers, json=data)
-        response_data = response.json()
-        return render_template("recurring_template.html", response_data = response_data)
+        if response.ok == True:
+            response_data = response.json()
+            return render_template("recurring_template.html", response_data = response_data)
+        else:
+            error_data = response.text
+            return render_template("kco_template.html", error_data=error_data)
     else:
         return render_template("recurring_template.html")
 
