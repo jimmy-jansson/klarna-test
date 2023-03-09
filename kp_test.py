@@ -157,7 +157,7 @@ def klarna_recurring():
             return render_template("recurring_template.html", response_data = response_data)
         else:
             error_data = response.text
-            return render_template("kco_template.html", error_data=error_data)
+            return render_template("recurring_template.html", error_data=error_data)
     else:
         return render_template("recurring_template.html")
 
