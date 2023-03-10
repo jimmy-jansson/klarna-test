@@ -14,6 +14,10 @@
         <li><form action="/kp"><a href="kp">kp</a></form></li>
         <li><form action="/kco"><a href="/kco">kco</a></form></li>
         <li><form action="/recurring"><a href="/recurring">recurring</a></form></li>
+          <label class="switch">
+            <input id="dark-mode-toggle" type="checkbox">
+            <span class="slider"></span>
+          </label>
 			</ul>
 	</header>
 	<main>
@@ -33,6 +37,8 @@
             "locale": "sv-SE",
             "order_amount": 10000,
             "order_tax_amount": 2000,
+            "merchant_urls": {
+              "authorization": "http://127.0.0.1:5000/create_order"},
             "order_lines": [
                 {
                     "type": "physical",
@@ -73,15 +79,15 @@
           });
         </script>
         <form action="/create_order" method="post"><input type="hidden" name="authorization_token"
-            id="authorization_token"><button id="complete-purchase-button">authorize</button>
-          <script>
-            document.getElementById("complete-purchase-button").addEventListener("click", function () {
-              Klarna.Payments.authorize({
-                payment_method_category: "klarna"
-              }, );
-            });
-          </script>
-        </form> 
+          id="authorization_token"><button id="complete-purchase-button">authorize</button>
+        <script>
+          document.getElementById("complete-purchase-button").addEventListener("click", function () {
+            Klarna.Payments.authorize({
+              payment_method_category: "klarna"
+            }, );
+          });
+        </script>
+      </form> 
         {% elif error_data %}
         <br> d något fel:
         <br><div class="error">{{error_data}}</div>
@@ -101,5 +107,23 @@
 	<footer>
 		<p>&copy; jimmy jansson hihi</p>
 	</footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      const toggleButton = document.getElementById('dark-mode-toggle');
+      const body = document.body;
+      const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+    
+      if (isDarkMode) {
+        body.classList.add('dark-mode');
+        toggleButton.checked = true;
+      }
+    
+      toggleButton.addEventListener('click', () => {
+        const isDarkMode = toggleButton.checked;
+        localStorage.setItem('dark-mode', isDarkMode);
+        body.classList.toggle('dark-mode');
+      });
+    });
+        </script>
 </body>
 </html>
