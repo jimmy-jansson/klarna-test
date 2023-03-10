@@ -13,6 +13,10 @@
         <li><form action="/kp"><a href="kp">kp</a></form></li>
         <li><form action="/kco"><a href="/kco">kco</a></form></li>
         <li><form action="/recurring"><a href="/recurring">recurring</a></form></li>
+          <label class="switch">
+            <input id="dark-mode-toggle" type="checkbox">
+            <span class="slider"></span>
+          </label>
 			</ul>
 	</header>
 	<main>
@@ -87,5 +91,23 @@
 	<footer>
 		<p>&copy; jimmy jansson hihi</p>
 	</footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      const toggleButton = document.getElementById('dark-mode-toggle');
+      const body = document.body;
+      const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+    
+      if (isDarkMode) {
+        body.classList.add('dark-mode');
+        toggleButton.checked = true;
+      }
+    
+      toggleButton.addEventListener('click', () => {
+        const isDarkMode = toggleButton.checked;
+        localStorage.setItem('dark-mode', isDarkMode);
+        body.classList.toggle('dark-mode');
+      });
+    });
+        </script>
 </body>
 </html>
