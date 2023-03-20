@@ -165,14 +165,27 @@ def klarna_recurring():
         return render_template("recurring_template.html")
 
 
+lap_data_cache = {}
+
 @app.route('/drivers', methods=['GET', 'POST'])
 def drivers_lap_times():
+    global lap_data_cache
+    
+    if not lap_data_cache:
+        # If cache is empty, fetch data from API
+        lap_data_cache['leclerc'] = requests.get('https://ergast.com/api/f1/2023/1/drivers/leclerc/laps.json').json()['MRData']['RaceTable']['Races'][0]['Laps']
+        lap_data_cache['hamilton'] = requests.get('https://ergast.com/api/f1/2023/1/drivers/hamilton/laps.json').json()['MRData']['RaceTable']['Races'][0]['Laps']
+        lap_data_cache['norris'] = requests.get('https://ergast.com/api/f1/2023/1/drivers/norris/laps.json').json()['MRData']['RaceTable']['Races'][0]['Laps']
+        lap_data_cache['perez'] = requests.get('https://ergast.com/api/f1/2023/1/drivers/perez/laps.json').json()['MRData']['RaceTable']['Races'][0]['Laps']
+        lap_data_cache['russell'] = requests.get('https://ergast.com/api/f1/2023/1/drivers/russell/laps.json').json()['MRData']['RaceTable']['Races'][0]['Laps']
+
     if request.method == 'POST':
         driver = request.form['driver']
     else:
         driver = 'leclerc'
 
-    lap_data = requests.get('https://ergast.com/api/f1/2023/1/drivers/' + driver +'/laps.json').json()['MRData']['RaceTable']['Races'][0]['Laps']
+    lap_data = lap_data_cache[driver]
+
     timing_data = []
     lap_counter = []
     i = 0
@@ -187,7 +200,7 @@ def drivers_lap_times():
     fig = px.line(race_df, x='lap', y='lap_time')
     graph_html = pio.to_html(fig, full_html=False)
 
-    return render_template('lap_times.html', graph_html=graph_html)
+    return render_template('lap_times.html', driver=driver, graph_html=graph_html)
 
 
 if __name__ == '__main__':
