@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>jimmys testsida</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><form action="/"><a href="/">hem</a></form></li>
+        <li><form action="/kp"><a href="kp">kp</a></form></li>
+        <li><form action="/kco"><a href="/kco">kco</a></form></li>
+        <li><form action="/recurring"><a href="/recurring">recurring</a></form></li>
+        <li><form action="/drivers"><a href="/drivers">f1-tider</a></form></li>
+          <label class="switch">
+            <input id="dark-mode-toggle" type="checkbox">
+            <span class="slider"></span>
+          </label>
+      </ul>
+  </header>
+  <main>
+    <section>
+    <h1>F1 varvtider</h1>
+      <article>
+        <form method="POST" action="{{ url_for('drivers_lap_times') }}">
+            <label for="driver">välj förare:</label>
+            <select id="driver" name="driver">
+                <option value="leclerc" {% if driver == 'leclerc' %}selected{% endif %}>charles leclerc</option>
+                <option value="hamilton" {% if driver == 'hamilton' %}selected{% endif %}>lewis hamilton</option>
+                <option value="verstappen" {% if driver == 'verstappen' %}selected{% endif %}>max verstappen</option>
+                <option value="norris" {% if driver == 'norris' %}selected{% endif %}>lando norris</option>
+                <option value="perez" {% if driver == 'perez' %}selected{% endif %}>sergio perez</option>
+                <option value="russell" {% if driver == 'russell' %}selected{% endif %}>george russel</option>
+            </select>
+            <input type="submit" value="uppdatera">
+        </form>
+        <div>
+            {% if driver %}
+            <h2>varvtider för {{ driver|title }}</h2>
+            {% endif %}
+            {{ graph_html|safe }}
+        </div>
+        </article>
+    </section>
+    <aside>
+      <h2>viktiga länkar</h2>
+      <ul>
+        <li><a href="https://www.vasaloppet.se/vinter/vallaservice/">vallaservice</a></li>
+        <li><a href="https://www.youtube.com/watch?v=p6ROh-M7S0k">hur man simmar</a></li>
+        <li><a href="https://leffescykel.se/">leffes cyklar</a></li>
+        <li><a href="https://enter.lidingoloppet.se/Web/Step1.aspx?EventGroupId=1&CompetitionId=1715">anmälan till lidingöloppet</a></li>
+      </ul>
+    </aside>
+  </main>
+  <footer>
+    <p>&copy; jimmy jansson hihi</p>
+  </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      const toggleButton = document.getElementById('dark-mode-toggle');
+      const body = document.body;
+      const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+    
+      if (isDarkMode) {
+        body.classList.add('dark-mode');
+        toggleButton.checked = true;
+      }
+    
+      toggleButton.addEventListener('click', () => {
+        const isDarkMode = toggleButton.checked;
+        localStorage.setItem('dark-mode', isDarkMode);
+        body.classList.toggle('dark-mode');
+      });
+    });
+        </script>
+</body>
+</html>
