@@ -3,6 +3,10 @@ import requests
 import base64
 import time
 import json
+import plotly.express as px
+import plotly.io as pio
+import datetime
+import pandas as pd
 
 app = Flask(__name__)
 app.secret_key = 'bajsmannen123'
@@ -61,7 +65,6 @@ def create_order():
     response_data = response.json()
     token_response = None
     token_response_data = None
-
     while 'authorization_token' not in response_data:
         response = requests.get("https://api.playground.klarna.com/payments/v1/sessions/" + session["session_id"], headers=headers)
         response_data = response.json()
@@ -161,5 +164,31 @@ def klarna_recurring():
     else:
         return render_template("recurring_template.html")
 
-if __name__ == "__main__":
-    app.run(debug=False)
+
+@app.route('/drivers', methods=['GET', 'POST'])
+def drivers_lap_times():
+    if request.method == 'POST':
+        driver = request.form['driver']
+    else:
+        driver = 'leclerc'
+
+    lap_data = requests.get('https://ergast.com/api/f1/2023/1/drivers/' + driver +'/laps.json').json()['MRData']['RaceTable']['Races'][0]['Laps']
+    timing_data = []
+    lap_counter = []
+    i = 0
+    for lap in lap_data:
+        lap_time_str = lap['Timings'][0]['time']
+        lap_time = datetime.datetime.strptime(lap_time_str, '%M:%S.%f').time()
+        lap_time_secs = lap_time.minute * 60 + lap_time.second + lap_time.microsecond / 1000000
+        timing_data.append(lap_time_secs)
+        lap_counter.append(lap['number'])
+
+    race_df = pd.DataFrame({'lap': lap_counter, 'lap_time': timing_data})
+    fig = px.line(race_df, x='lap', y='lap_time')
+    graph_html = pio.to_html(fig, full_html=False)
+
+    return render_template('lap_times.html', graph_html=graph_html)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
